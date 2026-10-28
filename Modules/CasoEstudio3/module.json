@@ -1,0 +1,11 @@
+{
+    "name": "CasoEstudio3",
+    "alias": "casoestudio3",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CasoEstudio3\\Providers\\CasoEstudio3ServiceProvider"
+    ],
+    "files": []
+}

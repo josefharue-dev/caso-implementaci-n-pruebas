@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/casoestudio3",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\CasoEstudio3\\": "app/",
+            "Modules\\CasoEstudio3\\Database\\Factories\\": "database/factories/",
+            "Modules\\CasoEstudio3\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\CasoEstudio3\\Tests\\": "tests/"
+        }
+    }
+}
