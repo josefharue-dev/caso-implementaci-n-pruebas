@@ -24,7 +24,28 @@ protected $fillable = [
     'carne',
     'nombre',
     'apellidos',
+    'codEmpleadoConsejero'
 ];
+
+
+public function consejero()
+{
+    return $this->belongsTo(
+        Docente::class,
+        'codEmpleadoConsejero',
+        'codEmpleado'
+    );
+}
+
+public function matriculas()
+{
+    return $this->hasMany(
+        EstudianteMatriculado::class,
+        'estudiante_carne',
+        'carne'
+    );
+}
+
 
 
     // protected static function newFactory(): EstudianteFactory

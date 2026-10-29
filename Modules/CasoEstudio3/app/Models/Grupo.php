@@ -18,6 +18,7 @@ class Grupo extends Model
         'ano',
         'numeroGrupo',
         'abierto',
+        'curso_id',
     ];
 
     protected $casts = [
@@ -26,6 +27,36 @@ class Grupo extends Model
         'numeroGrupo' => 'integer',
         'abierto' => 'boolean',
     ];
+
+    
+public function estudiantesMatriculados()
+{
+    return $this->hasMany(
+        EstudianteMatriculado::class,
+        'grupo_id'
+    );
+}
+
+public function docentes()
+{
+    return $this->belongsToMany(
+        Docente::class,
+        'docente_grupo',
+        'grupo_id',
+        'docente_codEmpleado',
+        'id',
+        'codEmpleado'
+    );
+}
+
+public function curso()
+{
+    return $this->belongsTo(
+        Curso::class,
+        'curso_id'
+    );
+}
+
 
     // protected static function newFactory(): GrupoFactory
     // {

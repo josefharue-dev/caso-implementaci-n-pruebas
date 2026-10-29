@@ -31,6 +31,29 @@ protected $casts = [
 ];
 
 
+public function grupos()
+{
+    return $this->belongsToMany(
+        Grupo::class,
+        'docente_grupo',
+        'docente_codEmpleado',
+        'grupo_id',
+        'codEmpleado',
+        'id'
+    );
+}
+
+public function estudiantes()
+{
+    return $this->hasMany(
+        Estudiante::class,
+        'codEmpleadoConsejero',
+        'codEmpleado'
+    );
+}
+
+
+
     // protected static function newFactory(): DocenteFactory
     // {
     //     // return DocenteFactory::new();

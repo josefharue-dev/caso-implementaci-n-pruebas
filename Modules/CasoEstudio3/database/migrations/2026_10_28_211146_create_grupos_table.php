@@ -17,7 +17,9 @@ return new class extends Migration
         $table->integer('ano');
         $table->integer('numeroGrupo');
         $table->boolean('abierto');
-        $table->foreignId('curso_id');
+
+        $table->foreignId('curso_id')->constrained('cursos');
+            
         $table->timestamps();
         });
     }
