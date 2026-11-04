@@ -1,0 +1,38 @@
+name: Pruebas Laravel
+
+on:
+  push:
+    branches:
+      - casoestudio3-C30675-branch
+  pull_request:
+    branches:
+      - casoestudio3-C30675-branch
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v7
+
+      - name: Configurar PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, curl, zip, pdo_sqlite, sqlite3
+          coverage: none
+
+      - name: Instalar dependencias
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Configurar Laravel
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Ejecutar pruebas
+        run: php artisan test
