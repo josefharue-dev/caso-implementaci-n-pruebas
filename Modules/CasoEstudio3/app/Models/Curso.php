@@ -4,7 +4,7 @@ namespace Modules\CasoEstudio3\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\CasoEstudio3\Database\Factories\CursoFactory;
+use Modules\CasoEstudio3\Database\Factories\CursoFactory;
 
 class Curso extends Model
 {
@@ -31,8 +31,8 @@ public function grupos()
 }
 
 
-    // protected static function newFactory(): CursoFactory
-    // {
-    //     // return CursoFactory::new();
-    // }
+    protected static function newFactory(): CursoFactory
+    {
+        return CursoFactory::new();
+    }
 }

@@ -57,14 +57,14 @@ for ($i = 1; $i <= 15; $i++) {
         'carne' => $carne,
         'nombre' => 'Estudiante ' . $i,
         'apellidos' => 'Prueba',
-        'codEmpleadoConsejero' => 101,
+        'consejero_id' => 101,
     ]);
 
     $estudiante->setRelation('consejero', $docente1);
 
     $matricula = new EstudianteMatriculado([
         'grupo_id' => 1,
-        'estudiante_carne' => $carne,
+        'estudiante_id' => $carne,
         'nota' => 70 + $i,
     ]);
 
@@ -120,7 +120,7 @@ $this->assertEquals(
 
 $this->assertEquals(
     101,
-    $grupo->estudiantesMatriculados[0]->estudiante->codEmpleadoConsejero
+    $grupo->estudiantesMatriculados[0]->estudiante->consejero_id
 );
 
 $this->assertEquals(

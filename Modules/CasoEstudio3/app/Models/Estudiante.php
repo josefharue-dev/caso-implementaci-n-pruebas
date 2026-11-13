@@ -4,7 +4,7 @@ namespace Modules\CasoEstudio3\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\CasoEstudio3\Database\Factories\EstudianteFactory;
+use Modules\CasoEstudio3\Database\Factories\EstudianteFactory;
 
 class Estudiante extends Model
 {
@@ -24,7 +24,7 @@ protected $fillable = [
     'carne',
     'nombre',
     'apellidos',
-    'codEmpleadoConsejero'
+    'consejero_id'
 ];
 
 
@@ -32,7 +32,7 @@ public function consejero()
 {
     return $this->belongsTo(
         Docente::class,
-        'codEmpleadoConsejero',
+        'consejero_id',
         'codEmpleado'
     );
 }
@@ -47,9 +47,26 @@ public function matriculas()
 }
 
 
+public function grupos()
+{
+    return $this->belongsToMany(
+        Grupo::class,
+        'estudiantes_matriculados',
+        'estudiante_id',
+        'grupo_id',
+        'carne',
+        'id'
+    )
+    ->using(EstudianteMatriculado::class)
+    ->withPivot('nota')
+    ->withTimestamps();
+}
 
-    // protected static function newFactory(): EstudianteFactory
-    // {
-    //     // return EstudianteFactory::new();
-    // }
+
+
+
+    protected static function newFactory(): EstudianteFactory
+    {
+        return EstudianteFactory::new();
+    }
 }

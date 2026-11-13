@@ -4,7 +4,7 @@ namespace Modules\CasoEstudio3\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\CasoEstudio3\Database\Factories\DocenteFactory;
+use Modules\CasoEstudio3\Database\Factories\DocenteFactory;
 
 class Docente extends Model
 {
@@ -35,7 +35,7 @@ public function grupos()
 {
     return $this->belongsToMany(
         Grupo::class,
-        'docente_grupo',
+        'grupo_docente',
         'docente_codEmpleado',
         'grupo_id',
         'codEmpleado',
@@ -47,15 +47,15 @@ public function estudiantes()
 {
     return $this->hasMany(
         Estudiante::class,
-        'codEmpleadoConsejero',
+        'consejero_id',
         'codEmpleado'
     );
 }
 
 
 
-    // protected static function newFactory(): DocenteFactory
-    // {
-    //     // return DocenteFactory::new();
-    // }
+    protected static function newFactory(): DocenteFactory
+    {
+        return DocenteFactory::new();
+    }
 }

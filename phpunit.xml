@@ -16,6 +16,7 @@
     <source>
         <include>
             <directory>app</directory>
+            <file>Modules/CasoEstudio3/app/Models/Grupo.php</file>
         </include>
     </source>
     <php>

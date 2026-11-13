@@ -142,8 +142,8 @@ public function test_cp03_grupo_acepta_dos_docentes(): void
     ]);
 
     // Asignar ambos docentes al grupo
-    $grupo->asignarDocente(1001);
-    $grupo->asignarDocente(1002);
+    $grupo->asignarDocente(Docente::findOrFail(1001));
+    $grupo->asignarDocente(Docente::findOrFail(1002));
 
     // Recuperar el grupo desde la base de datos
     $grupo = Grupo::find($grupo->id);
@@ -163,7 +163,7 @@ public function test_cp03_grupo_acepta_dos_docentes(): void
     );
 
     // Verificar los registros en la tabla intermedia
-    $this->assertDatabaseCount('docente_grupo', 2);
+    $this->assertDatabaseCount('grupo_docente', 2);
 }
 
 
@@ -205,12 +205,12 @@ public function test_cp04_rechazar_tercer_docente(): void
     ]);
 
     // Asignar los dos primeros docentes
-    $grupo->asignarDocente(1001);
-    $grupo->asignarDocente(1002);
+    $grupo->asignarDocente(Docente::findOrFail(1001));
+    $grupo->asignarDocente(Docente::findOrFail(1002));
 
     // Intentar asignar un tercer docente
     try {
-        $grupo->asignarDocente(1003);
+        $grupo->asignarDocente(Docente::findOrFail(1003));
 
         $this->fail(
             'Se esperaba una DomainException.'
@@ -235,13 +235,13 @@ public function test_cp04_rechazar_tercer_docente(): void
     );
 
     // Verificar que el docente 1003 no fue asignado
-    $this->assertDatabaseMissing('docente_grupo', [
+    $this->assertDatabaseMissing('grupo_docente', [
         'grupo_id' => $grupo->id,
         'docente_codEmpleado' => 1003,
     ]);
 
     // Comprobar que solo hay dos asignaciones
-    $this->assertDatabaseCount('docente_grupo', 2);
+    $this->assertDatabaseCount('grupo_docente', 2);
 }
 
 
@@ -271,7 +271,7 @@ public function test_cp05_no_abrir_grupo_con_14_estudiantes(): void
     ]);
 
     // Asignar el docente al grupo
-    $grupo->asignarDocente(1001);
+    $grupo->asignarDocente(Docente::findOrFail(1001));
 
     // Registrar y matricular 14 estudiantes
     for ($i = 1; $i <= 14; $i++) {
@@ -279,12 +279,12 @@ public function test_cp05_no_abrir_grupo_con_14_estudiantes(): void
             'carne' => sprintf('C%05d', $i),
             'nombre' => 'Estudiante',
             'apellidos' => 'Prueba ' . $i,
-            'codEmpleadoConsejero' => 1001,
+            'consejero_id' => 1001,
         ]);
 
         EstudianteMatriculado::create([
             'grupo_id' => $grupo->id,
-            'estudiante_carne' => $estudiante->carne,
+            'estudiante_id' => $estudiante->carne,
             'nota' => null,
         ]);
     }
@@ -354,7 +354,7 @@ public function test_cp06_abrir_grupo_con_15_estudiantes(): void
     ]);
 
     // Asignar el docente al grupo
-    $grupo->asignarDocente(1001);
+    $grupo->asignarDocente(Docente::findOrFail(1001));
 
     // Registrar y matricular 15 estudiantes
     for ($i = 1; $i <= 15; $i++) {
@@ -362,12 +362,12 @@ public function test_cp06_abrir_grupo_con_15_estudiantes(): void
             'carne' => sprintf('C%05d', $i),
             'nombre' => 'Estudiante',
             'apellidos' => 'Prueba ' . $i,
-            'codEmpleadoConsejero' => 1001,
+            'consejero_id' => 1001,
         ]);
 
         EstudianteMatriculado::create([
             'grupo_id' => $grupo->id,
-            'estudiante_carne' => $estudiante->carne,
+            'estudiante_id' => $estudiante->carne,
             'nota' => null,
         ]);
     }

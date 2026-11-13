@@ -2,11 +2,11 @@
 
 namespace Modules\CasoEstudio3\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\CasoEstudio3\Database\Factories\EstudianteMatriculadoFactory;
 
-class EstudianteMatriculado extends Model
+class EstudianteMatriculado extends Pivot
 {
     use HasFactory;
 
@@ -18,7 +18,7 @@ protected $table = 'estudiantes_matriculados';
 
 protected $fillable = [
     'grupo_id',
-    'estudiante_carne',
+    'estudiante_id',
     'nota',
 ];
 
@@ -42,9 +42,11 @@ public function estudiante()
 {
     return $this->belongsTo(
         Estudiante::class,
-        'estudiante_carne',
+        'estudiante_id',
         'carne'
     );
 }
+
+public $incrementing = true;
 
 }
